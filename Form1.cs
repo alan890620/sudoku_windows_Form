@@ -47,9 +47,9 @@ namespace sudoku_win
 			{
 				if (n > size || n < 1)  //防呆
 					return false;
-				if (x > size || x < 1)  //防笨
+				if (x > size || x < 0)  //防笨
 					return false;
-				if (y > size || y < 1)  //防傻
+				if (y > size || y < 0)  //防傻
 					return false;
 				if (qs[x, y] != 0)      //防低能
 					return false;
@@ -220,7 +220,8 @@ namespace sudoku_win
 		*/
 
 		sudoku game;
-		Button[] buttons;
+		Button[] buttons , inputButtons;
+		int click = -1;
 
 		public Form1()
         {
@@ -231,7 +232,6 @@ namespace sudoku_win
         {
 			
 			//NOTHING
-			//load_button();
 			load_button_field();
 
 			for ( int t = 0; t != 81; t++)
@@ -239,117 +239,22 @@ namespace sudoku_win
 				buttons[t].Text = " ";
 				buttons[t].Dock = DockStyle.Fill;
 				buttons[t].Margin = new System.Windows.Forms.Padding(1);
-				//buttons[t].Enabled = false;
-				//listBox1.Items.Add("AsNum" + t);
 			}
 			//*/
-			tableLayoutPanel1.Enabled = false;
-		}
-		private void load_button()
-		{
-			int t = 0;
-			buttons = new Button[81];
-			buttons[t++] = AsNum0;
-			buttons[t++] = AsNum1;
-			buttons[t++] = AsNum2;
-			buttons[t++] = AsNum3;
-			buttons[t++] = AsNum4;
-			buttons[t++] = AsNum5;
-			buttons[t++] = AsNum6;
-			buttons[t++] = AsNum7;
-			buttons[t++] = AsNum8;
-			////////////////////////////
-			buttons[t++] = AsNum9;
-			buttons[t++] = AsNum10;
-			buttons[t++] = AsNum11;
-			buttons[t++] = AsNum12;
-			buttons[t++] = AsNum13;
-			buttons[t++] = AsNum14;
-			buttons[t++] = AsNum15;
-			buttons[t++] = AsNum16;
-			buttons[t++] = AsNum17;
-			////////////////////////////
-			buttons[t++] = AsNum18;
-			buttons[t++] = AsNum19;
-			buttons[t++] = AsNum20;
-			buttons[t++] = AsNum21;
-			buttons[t++] = AsNum22;
-			buttons[t++] = AsNum23;
-			buttons[t++] = AsNum24;
-			buttons[t++] = AsNum25;
-			buttons[t++] = AsNum26;
-			////////////////////////////
-			buttons[t++] = AsNum27;
-			buttons[t++] = AsNum28;
-			buttons[t++] = AsNum29;
-			buttons[t++] = AsNum30;
-			buttons[t++] = AsNum31;
-			buttons[t++] = AsNum32;
-			buttons[t++] = AsNum33;
-			buttons[t++] = AsNum34;
-			buttons[t++] = AsNum35;
-			////////////////////////////
-			buttons[t++] = AsNum36;
-			buttons[t++] = AsNum37;
-			buttons[t++] = AsNum38;
-			buttons[t++] = AsNum39;
-			buttons[t++] = AsNum40;
-			buttons[t++] = AsNum41;
-			buttons[t++] = AsNum42;
-			buttons[t++] = AsNum43;
-			buttons[t++] = AsNum44;
-			////////////////////////////
-			buttons[t++] = AsNum45;
-			buttons[t++] = AsNum46;
-			buttons[t++] = AsNum47;
-			buttons[t++] = AsNum48;
-			buttons[t++] = AsNum49;
-			buttons[t++] = AsNum50;
-			buttons[t++] = AsNum51;
-			buttons[t++] = AsNum52;
-			buttons[t++] = AsNum53;
-			////////////////////////////
-			buttons[t++] = AsNum54;
-			buttons[t++] = AsNum55;
-			buttons[t++] = AsNum56;
-			buttons[t++] = AsNum57;
-			buttons[t++] = AsNum58;
-			buttons[t++] = AsNum59;
-			buttons[t++] = AsNum60;
-			buttons[t++] = AsNum61;
-			buttons[t++] = AsNum62;
-			////////////////////////////
-			buttons[t++] = AsNum63;
-			buttons[t++] = AsNum64;
-			buttons[t++] = AsNum65;
-			buttons[t++] = AsNum66;
-			buttons[t++] = AsNum67;
-			buttons[t++] = AsNum68;
-			buttons[t++] = AsNum69;
-			buttons[t++] = AsNum70;
-			buttons[t++] = AsNum71;
-			////////////////////////////
-			buttons[t++] = AsNum72;
-			buttons[t++] = AsNum73;
-			buttons[t++] = AsNum74;
-			buttons[t++] = AsNum75;
-			buttons[t++] = AsNum76;
-			buttons[t++] = AsNum77;
-			buttons[t++] = AsNum78;
-			buttons[t++] = AsNum79;
-			buttons[t++] = AsNum80;
-			////////////////////////////
+			tableLayoutPanel11.Enabled = false;
+
+			Form1_Resize( sender , e );
 		}
 		private void load_button_field()
         {
 			try
 			{
 				buttons = new Button[81];
+				inputButtons = new Button[9];
 				for ( int t = 0; t != 81; t++ )
-                {
-					listBox1.Items.Add("AsNum" + t);
 					buttons[t] = (Button)typeof(Form1).GetField("AsNum" + t, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
-				}
+				for ( int t = 0; t != 9; t ++ )
+					inputButtons[t] = (Button)typeof(Form1).GetField("inputButton" + ( t + 1 ), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
 			}
 			catch ( Exception e )
             {
@@ -360,38 +265,68 @@ namespace sudoku_win
 		private void start_Click(object sender, EventArgs e)
         {
 			game = new sudoku(3,3,(int)numericUpDown1.Value);
-			showGame(game.readgame());
-			tableLayoutPanel1.Enabled = true;
+			showGame(game.readgame() , game.readqs() , -1 );
+			tableLayoutPanel11.Enabled = true;
 		}
 
-		Color normal_as = Color.FromArgb(255, 255, 255) 
-			, normal_he = Color.FromArgb(200, 200, 255)
-			, pick_as = Color.FromArgb(255, 255, 255)
-			, pick_he = Color.FromArgb(255, 255, 255)
-			, high_as = Color.FromArgb(255, 255, 255)
-			, high_he = Color.FromArgb(255, 255, 255);
-		private void showGame( int[,] show )
+		Color normal_as = Color.FromArgb(255, 255, 255) //答案普通
+			, normal_he = Color.FromArgb(200, 200, 255) //題目普通
+			, pick_as = Color.FromArgb(200, 200, 200)   //答案選取
+			, pick_he = Color.FromArgb(150, 150, 200)   //題目選取
+			, high_as = Color.FromArgb(220, 220, 220)   //答案高亮
+			, high_he = Color.FromArgb(180, 180, 230)   //題目高亮
+			, wrong_he = Color.FromArgb(255, 200, 200)  //答案錯誤
+			, wrong_hight_he = Color.FromArgb(230, 180, 180);  //高亮答案錯誤
+
+
+        private void showGame( int[,] game , int[,] qs , int pick )
         {
 			for ( int t = 0; t != 81; t ++)
             {
-				buttons[t].Text = show[t/9,t%9].ToString() ;
-				if (buttons[t].Text != "0")
-					buttons[t].BackColor = normal_he;
+				if (game[t / 9, t % 9] != 0)
+					buttons[t].Text = game[t / 9, t % 9].ToString();
 				else
-					buttons[t].BackColor = normal_as;
+					buttons[t].Text = "";
+
+				if (qs[t / 9, t % 9] != 0)
+					if (t == pick)
+						buttons[t].BackColor = pick_he;
+					else
+						if ((t / 9 == pick / 9 || t % 9 == pick % 9) && pick >= 0)
+							buttons[t].BackColor = high_he;
+						else
+							buttons[t].BackColor = normal_he;
+				else
+					if (t == pick)
+						buttons[t].BackColor = pick_as;
+					else
+						if ((t / 9 == pick / 9 || t % 9 == pick % 9) && pick >= 0)
+							buttons[t].BackColor = high_as;
+						else
+							buttons[t].BackColor = normal_as;
 			}
+			//listBox1.Items.Add( pick );
         }
 
         private void as_Click(object sender, EventArgs e)
 		{
-			int click = Array.IndexOf(buttons,e);
-			listBox1.Items.Add(click.ToString());
+			click = Array.IndexOf(buttons,sender);
+			showGame(game.readgame(), game.readqs(), click);
+			//listBox1.Items.Add(click.ToString());
+		}
+		private void input_Click(object sender, EventArgs e)
+		{
+			int input = Array.IndexOf(inputButtons, sender) + 1 ;
+			listBox1.Items.Add(input);
+			game.inputAns(click / 9, click % 9, input);
+			showGame(game.readgame(), game.readqs(), click);
 		}
 
-        private void Form1_Resize(object sender, EventArgs e)
+		private void Form1_Resize(object sender, EventArgs e)
         {
-			//tableLayoutPanel1.Size = new Size( Form1.Size.Width , );
-        }
+			tableLayoutPanel11.Size = new Size( panel1.Size.Width -24 , ( ( panel1.Size.Width -24 ) / 9) * 10 );
+
+		}
 
     }
 }

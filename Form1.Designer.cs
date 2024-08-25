@@ -125,6 +125,18 @@ namespace sudoku_win
             this.AsNum16 = new System.Windows.Forms.Button();
             this.AsNum17 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.inputButton9 = new System.Windows.Forms.Button();
+            this.inputButton8 = new System.Windows.Forms.Button();
+            this.inputButton7 = new System.Windows.Forms.Button();
+            this.inputButton6 = new System.Windows.Forms.Button();
+            this.inputButton5 = new System.Windows.Forms.Button();
+            this.inputButton4 = new System.Windows.Forms.Button();
+            this.inputButton3 = new System.Windows.Forms.Button();
+            this.inputButton2 = new System.Windows.Forms.Button();
+            this.inputButton1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -137,11 +149,14 @@ namespace sudoku_win
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // start
             // 
-            this.start.Location = new System.Drawing.Point(12, 12);
+            this.start.Location = new System.Drawing.Point(16, 12);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(75, 23);
             this.start.TabIndex = 0;
@@ -151,7 +166,7 @@ namespace sudoku_win
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(195, 12);
+            this.numericUpDown1.Location = new System.Drawing.Point(109, 12);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             50,
             0,
@@ -202,14 +217,15 @@ namespace sudoku_win
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 54);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(329, 320);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(327, 322);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel10
@@ -228,7 +244,7 @@ namespace sudoku_win
             this.tableLayoutPanel10.Controls.Add(this.AsNum62, 2, 0);
             this.tableLayoutPanel10.Controls.Add(this.AsNum61, 1, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(219, 213);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(219, 215);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 3;
@@ -236,7 +252,7 @@ namespace sudoku_win
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(109, 106);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(107, 106);
             this.tableLayoutPanel10.TabIndex = 9;
             // 
             // AsNum78
@@ -251,7 +267,7 @@ namespace sudoku_win
             // 
             // AsNum80
             // 
-            this.AsNum80.Location = new System.Drawing.Point(75, 73);
+            this.AsNum80.Location = new System.Drawing.Point(73, 73);
             this.AsNum80.Name = "AsNum80";
             this.AsNum80.Size = new System.Drawing.Size(25, 23);
             this.AsNum80.TabIndex = 12;
@@ -261,7 +277,7 @@ namespace sudoku_win
             // 
             // AsNum79
             // 
-            this.AsNum79.Location = new System.Drawing.Point(39, 73);
+            this.AsNum79.Location = new System.Drawing.Point(38, 73);
             this.AsNum79.Name = "AsNum79";
             this.AsNum79.Size = new System.Drawing.Size(25, 23);
             this.AsNum79.TabIndex = 13;
@@ -291,7 +307,7 @@ namespace sudoku_win
             // 
             // AsNum71
             // 
-            this.AsNum71.Location = new System.Drawing.Point(75, 38);
+            this.AsNum71.Location = new System.Drawing.Point(73, 38);
             this.AsNum71.Name = "AsNum71";
             this.AsNum71.Size = new System.Drawing.Size(25, 23);
             this.AsNum71.TabIndex = 9;
@@ -301,7 +317,7 @@ namespace sudoku_win
             // 
             // AsNum70
             // 
-            this.AsNum70.Location = new System.Drawing.Point(39, 38);
+            this.AsNum70.Location = new System.Drawing.Point(38, 38);
             this.AsNum70.Name = "AsNum70";
             this.AsNum70.Size = new System.Drawing.Size(25, 23);
             this.AsNum70.TabIndex = 8;
@@ -311,7 +327,7 @@ namespace sudoku_win
             // 
             // AsNum62
             // 
-            this.AsNum62.Location = new System.Drawing.Point(75, 3);
+            this.AsNum62.Location = new System.Drawing.Point(73, 3);
             this.AsNum62.Name = "AsNum62";
             this.AsNum62.Size = new System.Drawing.Size(25, 23);
             this.AsNum62.TabIndex = 6;
@@ -321,7 +337,7 @@ namespace sudoku_win
             // 
             // AsNum61
             // 
-            this.AsNum61.Location = new System.Drawing.Point(39, 3);
+            this.AsNum61.Location = new System.Drawing.Point(38, 3);
             this.AsNum61.Name = "AsNum61";
             this.AsNum61.Size = new System.Drawing.Size(25, 23);
             this.AsNum61.TabIndex = 5;
@@ -345,7 +361,7 @@ namespace sudoku_win
             this.tableLayoutPanel9.Controls.Add(this.AsNum67, 1, 1);
             this.tableLayoutPanel9.Controls.Add(this.AsNum59, 2, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(110, 213);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(110, 215);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 3;
@@ -462,7 +478,7 @@ namespace sudoku_win
             this.tableLayoutPanel8.Controls.Add(this.AsNum65, 2, 1);
             this.tableLayoutPanel8.Controls.Add(this.AsNum64, 1, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(1, 213);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(1, 215);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 3;
@@ -579,7 +595,7 @@ namespace sudoku_win
             this.tableLayoutPanel6.Controls.Add(this.AsNum43, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.AsNum44, 2, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(219, 107);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(219, 108);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
@@ -587,12 +603,12 @@ namespace sudoku_win
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(109, 104);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel6.TabIndex = 6;
             // 
             // AsNum51
             // 
-            this.AsNum51.Location = new System.Drawing.Point(3, 71);
+            this.AsNum51.Location = new System.Drawing.Point(3, 73);
             this.AsNum51.Name = "AsNum51";
             this.AsNum51.Size = new System.Drawing.Size(25, 23);
             this.AsNum51.TabIndex = 13;
@@ -602,7 +618,7 @@ namespace sudoku_win
             // 
             // AsNum52
             // 
-            this.AsNum52.Location = new System.Drawing.Point(39, 71);
+            this.AsNum52.Location = new System.Drawing.Point(38, 73);
             this.AsNum52.Name = "AsNum52";
             this.AsNum52.Size = new System.Drawing.Size(25, 23);
             this.AsNum52.TabIndex = 12;
@@ -612,7 +628,7 @@ namespace sudoku_win
             // 
             // AsNum53
             // 
-            this.AsNum53.Location = new System.Drawing.Point(75, 71);
+            this.AsNum53.Location = new System.Drawing.Point(73, 73);
             this.AsNum53.Name = "AsNum53";
             this.AsNum53.Size = new System.Drawing.Size(25, 23);
             this.AsNum53.TabIndex = 11;
@@ -632,7 +648,7 @@ namespace sudoku_win
             // 
             // AsNum34
             // 
-            this.AsNum34.Location = new System.Drawing.Point(39, 3);
+            this.AsNum34.Location = new System.Drawing.Point(38, 3);
             this.AsNum34.Name = "AsNum34";
             this.AsNum34.Size = new System.Drawing.Size(25, 23);
             this.AsNum34.TabIndex = 6;
@@ -642,7 +658,7 @@ namespace sudoku_win
             // 
             // AsNum35
             // 
-            this.AsNum35.Location = new System.Drawing.Point(75, 3);
+            this.AsNum35.Location = new System.Drawing.Point(73, 3);
             this.AsNum35.Name = "AsNum35";
             this.AsNum35.Size = new System.Drawing.Size(25, 23);
             this.AsNum35.TabIndex = 7;
@@ -652,7 +668,7 @@ namespace sudoku_win
             // 
             // AsNum42
             // 
-            this.AsNum42.Location = new System.Drawing.Point(3, 37);
+            this.AsNum42.Location = new System.Drawing.Point(3, 38);
             this.AsNum42.Name = "AsNum42";
             this.AsNum42.Size = new System.Drawing.Size(25, 23);
             this.AsNum42.TabIndex = 8;
@@ -662,7 +678,7 @@ namespace sudoku_win
             // 
             // AsNum43
             // 
-            this.AsNum43.Location = new System.Drawing.Point(39, 37);
+            this.AsNum43.Location = new System.Drawing.Point(38, 38);
             this.AsNum43.Name = "AsNum43";
             this.AsNum43.Size = new System.Drawing.Size(25, 23);
             this.AsNum43.TabIndex = 9;
@@ -672,7 +688,7 @@ namespace sudoku_win
             // 
             // AsNum44
             // 
-            this.AsNum44.Location = new System.Drawing.Point(75, 37);
+            this.AsNum44.Location = new System.Drawing.Point(73, 38);
             this.AsNum44.Name = "AsNum44";
             this.AsNum44.Size = new System.Drawing.Size(25, 23);
             this.AsNum44.TabIndex = 10;
@@ -696,7 +712,7 @@ namespace sudoku_win
             this.tableLayoutPanel7.Controls.Add(this.AsNum37, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.AsNum38, 2, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(1, 107);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(1, 108);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
@@ -704,12 +720,12 @@ namespace sudoku_win
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(107, 104);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel7.TabIndex = 7;
             // 
             // AsNum45
             // 
-            this.AsNum45.Location = new System.Drawing.Point(3, 71);
+            this.AsNum45.Location = new System.Drawing.Point(3, 73);
             this.AsNum45.Name = "AsNum45";
             this.AsNum45.Size = new System.Drawing.Size(25, 23);
             this.AsNum45.TabIndex = 13;
@@ -719,7 +735,7 @@ namespace sudoku_win
             // 
             // AsNum46
             // 
-            this.AsNum46.Location = new System.Drawing.Point(38, 71);
+            this.AsNum46.Location = new System.Drawing.Point(38, 73);
             this.AsNum46.Name = "AsNum46";
             this.AsNum46.Size = new System.Drawing.Size(25, 23);
             this.AsNum46.TabIndex = 12;
@@ -729,7 +745,7 @@ namespace sudoku_win
             // 
             // AsNum47
             // 
-            this.AsNum47.Location = new System.Drawing.Point(73, 71);
+            this.AsNum47.Location = new System.Drawing.Point(73, 73);
             this.AsNum47.Name = "AsNum47";
             this.AsNum47.Size = new System.Drawing.Size(25, 23);
             this.AsNum47.TabIndex = 11;
@@ -769,7 +785,7 @@ namespace sudoku_win
             // 
             // AsNum36
             // 
-            this.AsNum36.Location = new System.Drawing.Point(3, 37);
+            this.AsNum36.Location = new System.Drawing.Point(3, 38);
             this.AsNum36.Name = "AsNum36";
             this.AsNum36.Size = new System.Drawing.Size(25, 23);
             this.AsNum36.TabIndex = 8;
@@ -779,7 +795,7 @@ namespace sudoku_win
             // 
             // AsNum37
             // 
-            this.AsNum37.Location = new System.Drawing.Point(38, 37);
+            this.AsNum37.Location = new System.Drawing.Point(38, 38);
             this.AsNum37.Name = "AsNum37";
             this.AsNum37.Size = new System.Drawing.Size(25, 23);
             this.AsNum37.TabIndex = 9;
@@ -789,7 +805,7 @@ namespace sudoku_win
             // 
             // AsNum38
             // 
-            this.AsNum38.Location = new System.Drawing.Point(73, 37);
+            this.AsNum38.Location = new System.Drawing.Point(73, 38);
             this.AsNum38.Name = "AsNum38";
             this.AsNum38.Size = new System.Drawing.Size(25, 23);
             this.AsNum38.TabIndex = 10;
@@ -813,7 +829,7 @@ namespace sudoku_win
             this.tableLayoutPanel5.Controls.Add(this.AsNum40, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.AsNum41, 2, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(110, 107);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(110, 108);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
@@ -821,12 +837,12 @@ namespace sudoku_win
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(107, 104);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // AsNum48
             // 
-            this.AsNum48.Location = new System.Drawing.Point(3, 71);
+            this.AsNum48.Location = new System.Drawing.Point(3, 73);
             this.AsNum48.Name = "AsNum48";
             this.AsNum48.Size = new System.Drawing.Size(25, 23);
             this.AsNum48.TabIndex = 13;
@@ -836,7 +852,7 @@ namespace sudoku_win
             // 
             // AsNum49
             // 
-            this.AsNum49.Location = new System.Drawing.Point(38, 71);
+            this.AsNum49.Location = new System.Drawing.Point(38, 73);
             this.AsNum49.Name = "AsNum49";
             this.AsNum49.Size = new System.Drawing.Size(25, 23);
             this.AsNum49.TabIndex = 12;
@@ -846,7 +862,7 @@ namespace sudoku_win
             // 
             // AsNum50
             // 
-            this.AsNum50.Location = new System.Drawing.Point(73, 71);
+            this.AsNum50.Location = new System.Drawing.Point(73, 73);
             this.AsNum50.Name = "AsNum50";
             this.AsNum50.Size = new System.Drawing.Size(25, 23);
             this.AsNum50.TabIndex = 11;
@@ -886,7 +902,7 @@ namespace sudoku_win
             // 
             // AsNum39
             // 
-            this.AsNum39.Location = new System.Drawing.Point(3, 37);
+            this.AsNum39.Location = new System.Drawing.Point(3, 38);
             this.AsNum39.Name = "AsNum39";
             this.AsNum39.Size = new System.Drawing.Size(25, 23);
             this.AsNum39.TabIndex = 8;
@@ -896,7 +912,7 @@ namespace sudoku_win
             // 
             // AsNum40
             // 
-            this.AsNum40.Location = new System.Drawing.Point(38, 37);
+            this.AsNum40.Location = new System.Drawing.Point(38, 38);
             this.AsNum40.Name = "AsNum40";
             this.AsNum40.Size = new System.Drawing.Size(25, 23);
             this.AsNum40.TabIndex = 9;
@@ -906,7 +922,7 @@ namespace sudoku_win
             // 
             // AsNum41
             // 
-            this.AsNum41.Location = new System.Drawing.Point(73, 37);
+            this.AsNum41.Location = new System.Drawing.Point(73, 38);
             this.AsNum41.Name = "AsNum41";
             this.AsNum41.Size = new System.Drawing.Size(25, 23);
             this.AsNum41.TabIndex = 10;
@@ -937,12 +953,12 @@ namespace sudoku_win
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(107, 104);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // AsNum23
             // 
-            this.AsNum23.Location = new System.Drawing.Point(73, 71);
+            this.AsNum23.Location = new System.Drawing.Point(73, 73);
             this.AsNum23.Name = "AsNum23";
             this.AsNum23.Size = new System.Drawing.Size(25, 23);
             this.AsNum23.TabIndex = 14;
@@ -952,7 +968,7 @@ namespace sudoku_win
             // 
             // AsNum22
             // 
-            this.AsNum22.Location = new System.Drawing.Point(38, 71);
+            this.AsNum22.Location = new System.Drawing.Point(38, 73);
             this.AsNum22.Name = "AsNum22";
             this.AsNum22.Size = new System.Drawing.Size(25, 23);
             this.AsNum22.TabIndex = 13;
@@ -962,7 +978,7 @@ namespace sudoku_win
             // 
             // AsNum21
             // 
-            this.AsNum21.Location = new System.Drawing.Point(3, 71);
+            this.AsNum21.Location = new System.Drawing.Point(3, 73);
             this.AsNum21.Name = "AsNum21";
             this.AsNum21.Size = new System.Drawing.Size(25, 23);
             this.AsNum21.TabIndex = 12;
@@ -972,7 +988,7 @@ namespace sudoku_win
             // 
             // AsNum14
             // 
-            this.AsNum14.Location = new System.Drawing.Point(73, 37);
+            this.AsNum14.Location = new System.Drawing.Point(73, 38);
             this.AsNum14.Name = "AsNum14";
             this.AsNum14.Size = new System.Drawing.Size(25, 23);
             this.AsNum14.TabIndex = 11;
@@ -982,7 +998,7 @@ namespace sudoku_win
             // 
             // AsNum13
             // 
-            this.AsNum13.Location = new System.Drawing.Point(38, 37);
+            this.AsNum13.Location = new System.Drawing.Point(38, 38);
             this.AsNum13.Name = "AsNum13";
             this.AsNum13.Size = new System.Drawing.Size(25, 23);
             this.AsNum13.TabIndex = 10;
@@ -992,7 +1008,7 @@ namespace sudoku_win
             // 
             // AsNum12
             // 
-            this.AsNum12.Location = new System.Drawing.Point(3, 37);
+            this.AsNum12.Location = new System.Drawing.Point(3, 38);
             this.AsNum12.Name = "AsNum12";
             this.AsNum12.Size = new System.Drawing.Size(25, 23);
             this.AsNum12.TabIndex = 9;
@@ -1053,12 +1069,12 @@ namespace sudoku_win
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(107, 104);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // AsNum20
             // 
-            this.AsNum20.Location = new System.Drawing.Point(73, 71);
+            this.AsNum20.Location = new System.Drawing.Point(73, 73);
             this.AsNum20.Name = "AsNum20";
             this.AsNum20.Size = new System.Drawing.Size(25, 23);
             this.AsNum20.TabIndex = 11;
@@ -1068,7 +1084,7 @@ namespace sudoku_win
             // 
             // AsNum19
             // 
-            this.AsNum19.Location = new System.Drawing.Point(38, 71);
+            this.AsNum19.Location = new System.Drawing.Point(38, 73);
             this.AsNum19.Name = "AsNum19";
             this.AsNum19.Size = new System.Drawing.Size(25, 23);
             this.AsNum19.TabIndex = 10;
@@ -1078,7 +1094,7 @@ namespace sudoku_win
             // 
             // AsNum18
             // 
-            this.AsNum18.Location = new System.Drawing.Point(3, 71);
+            this.AsNum18.Location = new System.Drawing.Point(3, 73);
             this.AsNum18.Name = "AsNum18";
             this.AsNum18.Size = new System.Drawing.Size(25, 23);
             this.AsNum18.TabIndex = 9;
@@ -1088,7 +1104,7 @@ namespace sudoku_win
             // 
             // AsNum11
             // 
-            this.AsNum11.Location = new System.Drawing.Point(73, 37);
+            this.AsNum11.Location = new System.Drawing.Point(73, 38);
             this.AsNum11.Name = "AsNum11";
             this.AsNum11.Size = new System.Drawing.Size(25, 23);
             this.AsNum11.TabIndex = 8;
@@ -1098,7 +1114,7 @@ namespace sudoku_win
             // 
             // AsNum10
             // 
-            this.AsNum10.Location = new System.Drawing.Point(38, 37);
+            this.AsNum10.Location = new System.Drawing.Point(38, 38);
             this.AsNum10.Name = "AsNum10";
             this.AsNum10.Size = new System.Drawing.Size(25, 23);
             this.AsNum10.TabIndex = 7;
@@ -1108,7 +1124,7 @@ namespace sudoku_win
             // 
             // AsNum9
             // 
-            this.AsNum9.Location = new System.Drawing.Point(3, 37);
+            this.AsNum9.Location = new System.Drawing.Point(3, 38);
             this.AsNum9.Name = "AsNum9";
             this.AsNum9.Size = new System.Drawing.Size(25, 23);
             this.AsNum9.TabIndex = 6;
@@ -1122,7 +1138,7 @@ namespace sudoku_win
             this.AsNum1.Location = new System.Drawing.Point(36, 1);
             this.AsNum1.Margin = new System.Windows.Forms.Padding(1);
             this.AsNum1.Name = "AsNum1";
-            this.AsNum1.Size = new System.Drawing.Size(33, 32);
+            this.AsNum1.Size = new System.Drawing.Size(33, 33);
             this.AsNum1.TabIndex = 5;
             this.AsNum1.Text = "button1";
             this.AsNum1.UseVisualStyleBackColor = true;
@@ -1144,7 +1160,7 @@ namespace sudoku_win
             this.AsNum0.Location = new System.Drawing.Point(1, 1);
             this.AsNum0.Margin = new System.Windows.Forms.Padding(1);
             this.AsNum0.Name = "AsNum0";
-            this.AsNum0.Size = new System.Drawing.Size(33, 32);
+            this.AsNum0.Size = new System.Drawing.Size(33, 33);
             this.AsNum0.TabIndex = 4;
             this.AsNum0.Text = "button1";
             this.AsNum0.UseVisualStyleBackColor = true;
@@ -1174,12 +1190,12 @@ namespace sudoku_win
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(109, 104);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(107, 105);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // AsNum24
             // 
-            this.AsNum24.Location = new System.Drawing.Point(3, 71);
+            this.AsNum24.Location = new System.Drawing.Point(3, 73);
             this.AsNum24.Name = "AsNum24";
             this.AsNum24.Size = new System.Drawing.Size(25, 23);
             this.AsNum24.TabIndex = 13;
@@ -1189,7 +1205,7 @@ namespace sudoku_win
             // 
             // AsNum25
             // 
-            this.AsNum25.Location = new System.Drawing.Point(39, 71);
+            this.AsNum25.Location = new System.Drawing.Point(38, 73);
             this.AsNum25.Name = "AsNum25";
             this.AsNum25.Size = new System.Drawing.Size(25, 23);
             this.AsNum25.TabIndex = 12;
@@ -1199,7 +1215,7 @@ namespace sudoku_win
             // 
             // AsNum26
             // 
-            this.AsNum26.Location = new System.Drawing.Point(75, 71);
+            this.AsNum26.Location = new System.Drawing.Point(73, 73);
             this.AsNum26.Name = "AsNum26";
             this.AsNum26.Size = new System.Drawing.Size(25, 23);
             this.AsNum26.TabIndex = 11;
@@ -1219,7 +1235,7 @@ namespace sudoku_win
             // 
             // AsNum7
             // 
-            this.AsNum7.Location = new System.Drawing.Point(39, 3);
+            this.AsNum7.Location = new System.Drawing.Point(38, 3);
             this.AsNum7.Name = "AsNum7";
             this.AsNum7.Size = new System.Drawing.Size(25, 23);
             this.AsNum7.TabIndex = 6;
@@ -1229,7 +1245,7 @@ namespace sudoku_win
             // 
             // AsNum8
             // 
-            this.AsNum8.Location = new System.Drawing.Point(75, 3);
+            this.AsNum8.Location = new System.Drawing.Point(73, 3);
             this.AsNum8.Name = "AsNum8";
             this.AsNum8.Size = new System.Drawing.Size(25, 23);
             this.AsNum8.TabIndex = 7;
@@ -1239,7 +1255,7 @@ namespace sudoku_win
             // 
             // AsNum15
             // 
-            this.AsNum15.Location = new System.Drawing.Point(3, 37);
+            this.AsNum15.Location = new System.Drawing.Point(3, 38);
             this.AsNum15.Name = "AsNum15";
             this.AsNum15.Size = new System.Drawing.Size(25, 23);
             this.AsNum15.TabIndex = 8;
@@ -1249,7 +1265,7 @@ namespace sudoku_win
             // 
             // AsNum16
             // 
-            this.AsNum16.Location = new System.Drawing.Point(39, 37);
+            this.AsNum16.Location = new System.Drawing.Point(38, 38);
             this.AsNum16.Name = "AsNum16";
             this.AsNum16.Size = new System.Drawing.Size(25, 23);
             this.AsNum16.TabIndex = 9;
@@ -1259,7 +1275,7 @@ namespace sudoku_win
             // 
             // AsNum17
             // 
-            this.AsNum17.Location = new System.Drawing.Point(75, 37);
+            this.AsNum17.Location = new System.Drawing.Point(73, 38);
             this.AsNum17.Name = "AsNum17";
             this.AsNum17.Size = new System.Drawing.Size(25, 23);
             this.AsNum17.TabIndex = 10;
@@ -1271,21 +1287,172 @@ namespace sudoku_win
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(12, 389);
+            this.listBox1.Location = new System.Drawing.Point(12, 464);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(329, 160);
+            this.listBox1.Size = new System.Drawing.Size(329, 88);
             this.listBox1.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel11);
+            this.panel1.Controls.Add(this.listBox1);
+            this.panel1.Controls.Add(this.numericUpDown1);
+            this.panel1.Controls.Add(this.start);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(355, 567);
+            this.panel1.TabIndex = 5;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel12, 0, 1);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(12, 41);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(329, 361);
+            this.tableLayoutPanel11.TabIndex = 5;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 9;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.tableLayoutPanel12.Controls.Add(this.inputButton9, 8, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton8, 7, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton7, 6, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton6, 5, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton5, 4, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton4, 3, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton3, 2, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton2, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.inputButton1, 0, 0);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 327);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(323, 31);
+            this.tableLayoutPanel12.TabIndex = 4;
+            // 
+            // inputButton9
+            // 
+            this.inputButton9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton9.Location = new System.Drawing.Point(291, 3);
+            this.inputButton9.Name = "inputButton9";
+            this.inputButton9.Size = new System.Drawing.Size(29, 25);
+            this.inputButton9.TabIndex = 8;
+            this.inputButton9.Text = "9";
+            this.inputButton9.UseVisualStyleBackColor = true;
+            this.inputButton9.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton8
+            // 
+            this.inputButton8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton8.Location = new System.Drawing.Point(255, 3);
+            this.inputButton8.Name = "inputButton8";
+            this.inputButton8.Size = new System.Drawing.Size(30, 25);
+            this.inputButton8.TabIndex = 7;
+            this.inputButton8.Text = "8";
+            this.inputButton8.UseVisualStyleBackColor = true;
+            this.inputButton8.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton7
+            // 
+            this.inputButton7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton7.Location = new System.Drawing.Point(219, 3);
+            this.inputButton7.Name = "inputButton7";
+            this.inputButton7.Size = new System.Drawing.Size(30, 25);
+            this.inputButton7.TabIndex = 6;
+            this.inputButton7.Text = "7";
+            this.inputButton7.UseVisualStyleBackColor = true;
+            this.inputButton7.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton6
+            // 
+            this.inputButton6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton6.Location = new System.Drawing.Point(183, 3);
+            this.inputButton6.Name = "inputButton6";
+            this.inputButton6.Size = new System.Drawing.Size(30, 25);
+            this.inputButton6.TabIndex = 5;
+            this.inputButton6.Text = "6";
+            this.inputButton6.UseVisualStyleBackColor = true;
+            this.inputButton6.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton5
+            // 
+            this.inputButton5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton5.Location = new System.Drawing.Point(147, 3);
+            this.inputButton5.Name = "inputButton5";
+            this.inputButton5.Size = new System.Drawing.Size(30, 25);
+            this.inputButton5.TabIndex = 4;
+            this.inputButton5.Text = "5";
+            this.inputButton5.UseVisualStyleBackColor = true;
+            this.inputButton5.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton4
+            // 
+            this.inputButton4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton4.Location = new System.Drawing.Point(111, 3);
+            this.inputButton4.Name = "inputButton4";
+            this.inputButton4.Size = new System.Drawing.Size(30, 25);
+            this.inputButton4.TabIndex = 3;
+            this.inputButton4.Text = "4";
+            this.inputButton4.UseVisualStyleBackColor = true;
+            this.inputButton4.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton3
+            // 
+            this.inputButton3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton3.Location = new System.Drawing.Point(75, 3);
+            this.inputButton3.Name = "inputButton3";
+            this.inputButton3.Size = new System.Drawing.Size(30, 25);
+            this.inputButton3.TabIndex = 2;
+            this.inputButton3.Text = "3";
+            this.inputButton3.UseVisualStyleBackColor = true;
+            this.inputButton3.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton2
+            // 
+            this.inputButton2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton2.Location = new System.Drawing.Point(39, 3);
+            this.inputButton2.Name = "inputButton2";
+            this.inputButton2.Size = new System.Drawing.Size(30, 25);
+            this.inputButton2.TabIndex = 1;
+            this.inputButton2.Text = "2";
+            this.inputButton2.UseVisualStyleBackColor = true;
+            this.inputButton2.Click += new System.EventHandler(this.input_Click);
+            // 
+            // inputButton1
+            // 
+            this.inputButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inputButton1.Location = new System.Drawing.Point(3, 3);
+            this.inputButton1.Name = "inputButton1";
+            this.inputButton1.Size = new System.Drawing.Size(30, 25);
+            this.inputButton1.TabIndex = 0;
+            this.inputButton1.Text = "1";
+            this.inputButton1.UseVisualStyleBackColor = true;
+            this.inputButton1.Click += new System.EventHandler(this.input_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 589);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.start);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1303,6 +1470,9 @@ namespace sudoku_win
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel12.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1406,6 +1576,18 @@ namespace sudoku_win
         private System.Windows.Forms.Button AsNum16;
         private System.Windows.Forms.Button AsNum17;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.Button inputButton9;
+        private System.Windows.Forms.Button inputButton8;
+        private System.Windows.Forms.Button inputButton7;
+        private System.Windows.Forms.Button inputButton6;
+        private System.Windows.Forms.Button inputButton5;
+        private System.Windows.Forms.Button inputButton4;
+        private System.Windows.Forms.Button inputButton3;
+        private System.Windows.Forms.Button inputButton2;
+        private System.Windows.Forms.Button inputButton1;
     }
 }
 
