@@ -239,10 +239,11 @@ namespace sudoku_win
 				buttons[t].Text = " ";
 				buttons[t].Dock = DockStyle.Fill;
 				buttons[t].Margin = new System.Windows.Forms.Padding(1);
-				buttons[t].Enabled = false;
-				listBox1.Items.Add("AsNum" + t);
+				//buttons[t].Enabled = false;
+				//listBox1.Items.Add("AsNum" + t);
 			}
 			//*/
+			tableLayoutPanel1.Enabled = false;
 		}
 		private void load_button()
 		{
@@ -343,12 +344,7 @@ namespace sudoku_win
         {
 			try
 			{
-				/*
-				FieldInfo[] GetButton = typeof(Form1).GetFields(BindingFlags.NonPublic | BindingFlags.Instance) ;
-				for (int t = 0; t != GetButton.Length; t++)
-					listBox1.Items.Add( "Name:" + GetButton[t].Name  +"\n" );
-				//*/
-				//FieldInfo[] GetButton;
+				buttons = new Button[81];
 				for ( int t = 0; t != 81; t++ )
                 {
 					listBox1.Items.Add("AsNum" + t);
@@ -357,40 +353,39 @@ namespace sudoku_win
 			}
 			catch ( Exception e )
             {
-				load_button();
-            }
-		}
-		private void button1_Click(object sender, EventArgs e)
-		{
 
+            }
 		}
 
 		private void start_Click(object sender, EventArgs e)
         {
 			game = new sudoku(3,3,(int)numericUpDown1.Value);
 			showGame(game.readgame());
-        }
+			tableLayoutPanel1.Enabled = true;
+		}
 
+		Color normal_as = Color.FromArgb(255, 255, 255) 
+			, normal_he = Color.FromArgb(200, 200, 255)
+			, pick_as = Color.FromArgb(255, 255, 255)
+			, pick_he = Color.FromArgb(255, 255, 255)
+			, high_as = Color.FromArgb(255, 255, 255)
+			, high_he = Color.FromArgb(255, 255, 255);
 		private void showGame( int[,] show )
         {
 			for ( int t = 0; t != 81; t ++)
             {
 				buttons[t].Text = show[t/9,t%9].ToString() ;
 				if (buttons[t].Text != "0")
-					buttons[t].Enabled = false;
+					buttons[t].BackColor = normal_he;
 				else
-					buttons[t].Enabled = true;
+					buttons[t].BackColor = normal_as;
 			}
-        }
-
-
-        private void AsNum48_Click(object sender, EventArgs e)
-        {
         }
 
         private void as_Click(object sender, EventArgs e)
 		{
 			int click = Array.IndexOf(buttons,e);
+			listBox1.Items.Add(click.ToString());
 		}
 
         private void Form1_Resize(object sender, EventArgs e)
