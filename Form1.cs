@@ -45,7 +45,7 @@ namespace sudoku_win
 			}
 			public bool inputAns(int x, int y, int n) //輸入答案 ( 位置x , 位置y , 數字)
 			{
-				if (n > size || n < 1)  //防呆
+				if (n > size || n < 0)  //防呆
 					return false;
 				if (x > size || x < 0)  //防笨
 					return false;
@@ -81,10 +81,17 @@ namespace sudoku_win
 			{
 				return qs;
 			}
-			public int[] readdata() //讀取資料 ( )
+			public int[] readdata() //讀取資料
 			{
 				return new int[] { n, m, level, size };
 			}
+			public bool[] chickgame()
+            {
+				bool[] cg = new bool[81];
+				for ( int t = 0; t != 81; t++ )
+					cg[t] = isTrue(game, t, game[t / size, t % size]);
+				return cg;
+            }
 
 			//------------------------------------------------後端---------------------------------------------------------
 			private bool isTrue(int[,] arr, int xy, int num) //檢查是否合理
@@ -219,8 +226,11 @@ namespace sudoku_win
 
 		*/
 
+		//------------------------------------------------前端---------------------------------------------------------
+
 		sudoku game;
 		Button[] buttons , inputButtons;
+		Label[] numshows;
 		int click = -1;
 
 		public Form1()
@@ -232,7 +242,7 @@ namespace sudoku_win
         {
 			
 			//NOTHING
-			load_button_field();
+			load_item_field();
 
 			for ( int t = 0; t != 81; t++)
 			{
@@ -245,16 +255,19 @@ namespace sudoku_win
 
 			Form1_Resize( sender , e );
 		}
-		private void load_button_field()
+		private void load_item_field()
         {
 			try
 			{
 				buttons = new Button[81];
-				inputButtons = new Button[9];
+				inputButtons = new Button[10];
+				numshows = new Label[9];
 				for ( int t = 0; t != 81; t++ )
 					buttons[t] = (Button)typeof(Form1).GetField("AsNum" + t, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
-				for ( int t = 0; t != 9; t ++ )
-					inputButtons[t] = (Button)typeof(Form1).GetField("inputButton" + ( t + 1 ), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
+				for (int t = 0; t != 10; t++)
+					inputButtons[t] = (Button)typeof(Form1).GetField("inputButton" + (t), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
+				for (int t = 0; t != 9; t++)
+					numshows[t] = (Label)typeof(Form1).GetField("numShow" + (t + 1), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
 			}
 			catch ( Exception e )
             {
@@ -262,10 +275,10 @@ namespace sudoku_win
             }
 		}
 
-		private void start_Click(object sender, EventArgs e)
+		private void start_Click(object sender, EventArgs e) //開始按鈕
         {
 			game = new sudoku(3,3,(int)numericUpDown1.Value);
-			showGame(game.readgame() , game.readqs() , -1 );
+			showGame(game.readgame() , game.readqs() , -1 , game.chickWin(), game.chickgame());
 			tableLayoutPanel11.Enabled = true;
 		}
 
@@ -279,24 +292,26 @@ namespace sudoku_win
 			, wrong_hight_he = Color.FromArgb(230, 180, 180);  //高亮答案錯誤
 
 
-        private void showGame( int[,] game , int[,] qs , int pick )
+        private void showGame( int[,] game , int[,] qs , int pick , int[] cw , bool[] cg) //顯示
         {
 			for ( int t = 0; t != 81; t ++)
-            {
-				if (game[t / 9, t % 9] != 0)
+			{
+				buttons[t].ForeColor = Color.Black;
+				if (game[t / 9, t % 9] != 0) //數字顯示
 					buttons[t].Text = game[t / 9, t % 9].ToString();
 				else
 					buttons[t].Text = "";
 
-				if (qs[t / 9, t % 9] != 0)
-					if (t == pick)
-						buttons[t].BackColor = pick_he;
+				if (qs[t / 9, t % 9] != 0) //背景色 檢查是否為題目
+					if (t == pick) //是否為選取格
+						buttons[t].BackColor = pick_he;//題目
 					else
-						if ((t / 9 == pick / 9 || t % 9 == pick % 9) && pick >= 0)
+						if ((t / 9 == pick / 9 || t % 9 == pick % 9) && pick >= 0) //是否在十字線上
 							buttons[t].BackColor = high_he;
 						else
 							buttons[t].BackColor = normal_he;
 				else
+				{
 					if (t == pick)
 						buttons[t].BackColor = pick_as;
 					else
@@ -304,29 +319,51 @@ namespace sudoku_win
 							buttons[t].BackColor = high_as;
 						else
 							buttons[t].BackColor = normal_as;
+					if (cg[t])
+						buttons[t].ForeColor = Color.Black;
+					else
+						buttons[t].ForeColor = Color.Red;
+				}
 			}
+			for ( int t = 0; t != 9; t ++ ) //數量顯示
+            {
+				numshows[t].ForeColor = Color.Black;
+				numshows[t].Text = cw[t + 1].ToString();
+				if (cw[t + 1] > 8)
+					if (cw[t + 1] > 9)
+						numshows[t].ForeColor = Color.Red;
+					else
+						numshows[t].ForeColor = Color.Blue;
+            }
 			//listBox1.Items.Add( pick );
         }
 
-        private void as_Click(object sender, EventArgs e)
+        private void as_Click(object sender, EventArgs e) //選取格
 		{
 			click = Array.IndexOf(buttons,sender);
-			showGame(game.readgame(), game.readqs(), click);
+			showGame(game.readgame(), game.readqs(), click, game.chickWin() , game.chickgame());
 			//listBox1.Items.Add(click.ToString());
 		}
-		private void input_Click(object sender, EventArgs e)
+		private void input_Click(object sender, EventArgs e) //輸入數字 UI
 		{
-			int input = Array.IndexOf(inputButtons, sender) + 1 ;
+			int input = Array.IndexOf(inputButtons, sender) ;
 			listBox1.Items.Add(input);
 			game.inputAns(click / 9, click % 9, input);
-			showGame(game.readgame(), game.readqs(), click);
+			showGame(game.readgame(), game.readqs(), click, game.chickWin(), game.chickgame());
+		}
+		private void KeyP(object sender, KeyPressEventArgs e) //輸入數字 鍵盤
+		{
+			if (e.KeyChar >= 48 && e.KeyChar <= 57)
+			{
+				int buffer = (int)e.KeyChar - 47;
+			}
 		}
 
-		private void Form1_Resize(object sender, EventArgs e)
+		private void Form1_Resize(object sender, EventArgs e) //視窗尺寸改變
         {
-			tableLayoutPanel11.Size = new Size( panel1.Size.Width -24 , ( ( panel1.Size.Width -24 ) / 9) * 10 );
+			tableLayoutPanel11.Size = new Size( panel1.Size.Width -24 , ( panel1.Size.Width -24 ) + 80 ) ;
 
 		}
 
-    }
+	}
 }
