@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="saver.cs" />
     <Compile Include="sudoku.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

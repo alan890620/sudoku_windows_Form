@@ -26,19 +26,26 @@ namespace sudoku_win
 
 		*/
 
-		//------------------------------------------------前端---------------------------------------------------------
+		private sudoku game;
+		private Button[] buttons , inputButtons;
+		private Label[] numshows;
+		private int click = 0;
 
-		sudoku game;
-		Button[] buttons , inputButtons;
-		Label[] numshows;
-		int click = 0;
+		//0題目 1答案 2錯的答案
+		//0選取 1高亮 2普通
+		private static Color[][] blockColer =
+		{
+			new[] { Color.FromArgb(  0, 114, 255), Color.FromArgb( 70, 160, 255), Color.FromArgb(172, 206, 255) },	//題目
+			new[] { Color.FromArgb(150, 150, 150), Color.FromArgb(180, 180, 180), Color.FromArgb(255, 255, 255) },	//答案
+			new[] { Color.FromArgb(230, 160, 140), Color.FromArgb(230, 190, 170), Color.FromArgb(255, 200, 180) }	//錯誤
+		};
 
 		public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e) //進入點
         {
 			
 			//NOTHING
@@ -52,6 +59,14 @@ namespace sudoku_win
 			}
 			//*/
 			tableLayoutPanel11.Enabled = false;
+
+			try
+			{
+				game = FileCtr.load();
+                showGame(game.readgame(), game.readqs(), -1, game.chickWin(), game.chickgame());
+                tableLayoutPanel11.Enabled = true;
+            }
+			catch (Exception ex) { }
 
 			Form1_Resize( sender , e );
 		}
@@ -69,39 +84,28 @@ namespace sudoku_win
 				for (int t = 0; t != 9; t++)
 					numshows[t] = (Label)typeof(Form1).GetField("numShow" + (t + 1), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
 			}
-			catch ( Exception e )
-            {
-
-            }
+			catch ( Exception e ) { }
 		}
 
 		private void start_Click(object sender, EventArgs e) //開始按鈕
         {
 			game = new sudoku(3,3,(int)numericUpDown1.Value);
-			showGame(game.readgame() , game.readqs() , -1 , game.chickWin(), game.chickgame());
+            FileCtr.save(game);
+            showGame(game.readgame() , game.readqs() , -1 , game.chickWin(), game.chickgame());
 			tableLayoutPanel11.Enabled = true;
 		}
 
-		//0題目 1答案 2錯的答案
-		//0選取 1高亮 2普通
-		Color[][] blockColer =
-		{
-			new[] { Color.FromArgb(  0, 114, 255), Color.FromArgb( 70, 160, 255), Color.FromArgb(172, 206, 255) },	//題目
-			new[] { Color.FromArgb(150, 150, 150), Color.FromArgb(180, 180, 180), Color.FromArgb(255, 255, 255) },	//答案
-			new[] { Color.FromArgb(230, 160, 140), Color.FromArgb(230, 190, 170), Color.FromArgb(255, 200, 180) }	//錯誤
-		};
-
-		private void showGame( int[,] game , int[,] qs , int pick , int[] cw , bool[] cg) //顯示
+		private void showGame( int[][] game , int[][] qs , int pick , int[] cw , bool[] cg) //顯示
         {
 			for ( int t = 0; t != 81; t ++)
 			{
-				if (game[t / 9, t % 9] != 0) //數字顯示
-					buttons[t].Text = game[t / 9, t % 9].ToString();
+				if (game[t / 9][ t % 9] != 0) //數字顯示
+					buttons[t].Text = game[t / 9][ t % 9].ToString();
 				else
 					buttons[t].Text = "";
 
 				int c1 = 1, c2 = 2;
-				if (qs[t / 9, t % 9] != 0) //檢查是否為題目
+				if (qs[t / 9][ t % 9] != 0) //檢查是否為題目
 					c1 = 0;
 				if (t == pick) //是否為選取格
 					c2 = 0;
@@ -130,8 +134,9 @@ namespace sudoku_win
 			//listBox1.Items.Add( pick );
 			if ( cw[0] == 0 )
             {
-				listBox1.Items.Add( "-WIN-" );
-				tableLayoutPanel11.Enabled = false;
+                listBox1.Items.Add( "-WIN-" );
+                FileCtr.delete();
+                tableLayoutPanel11.Enabled = false;
 			}
         }
 
@@ -139,30 +144,32 @@ namespace sudoku_win
 		{
 			click = Array.IndexOf(buttons,sender);
 			showGame(game.readgame(), game.readqs(), click, game.chickWin() , game.chickgame());
-			//listBox1.Items.Add(click.ToString());
-		}
+            //listBox1.Items.Add(click.ToString());
+        }
+
 		private void input_Click(object sender, EventArgs e) //輸入數字 UI
 		{
 			//int input = Array.IndexOf(inputButtons, sender) ;
 			KeyInAns(Array.IndexOf(inputButtons, sender));
 		}
+
 		private void KeyP(object sender, KeyPressEventArgs e) //鍵盤輸入事件
 		{
 			if (e.KeyChar >= 48 && e.KeyChar <= 57 && tableLayoutPanel11.Enabled)
 				KeyInAns((int)e.KeyChar - 48);
 		}
+
 		private void KeyInAns ( int input ) //輸入
 		{
 			listBox1.Items.Add(input);
 			game.inputAns(click / 9, click % 9, input);
-			showGame(game.readgame(), game.readqs(), click, game.chickWin(), game.chickgame());
-		}
+            FileCtr.save(game);
+            showGame(game.readgame(), game.readqs(), click, game.chickWin(), game.chickgame());
+        }
 
 		private void Form1_Resize(object sender, EventArgs e) //視窗尺寸改變
         {
 			tableLayoutPanel11.Size = new Size( panel1.Size.Width -24 , ( panel1.Size.Width -24 ) + 80 ) ;
-
 		}
-
 	}
 }
