@@ -62,7 +62,7 @@ namespace sudoku_win
 
 			try
 			{
-				game = FileCtr.load();
+				game = Sudoku.Load();
                 showGame(game.ReadGame(), game.ReadQuestion(), -1, game.CheckWin(), game.CheckGame());
                 tableLayoutPanel11.Enabled = true;
             }
@@ -90,7 +90,7 @@ namespace sudoku_win
 		private void start_Click(object sender, EventArgs e) //開始按鈕
         {
 			game = new Sudoku(3,3,(int)numericUpDown1.Value);
-            FileCtr.save(game);
+            game.Save();
             showGame(game.ReadGame() , game.ReadQuestion() , -1 , game.CheckWin(), game.CheckGame());
 			tableLayoutPanel11.Enabled = true;
 		}
@@ -135,7 +135,7 @@ namespace sudoku_win
 			if ( cw[0] == 0 )
             {
                 listBox1.Items.Add( "-WIN-" );
-                FileCtr.delete();
+                Sudoku.Delete();
                 tableLayoutPanel11.Enabled = false;
 			}
         }
@@ -163,7 +163,7 @@ namespace sudoku_win
 		{
 			listBox1.Items.Add(input);
 			game.InputAns(click / 9, click % 9, input);
-            FileCtr.save(game);
+            game.Save();
             showGame(game.ReadGame(), game.ReadQuestion(), click, game.CheckWin(), game.CheckGame());
         }
 

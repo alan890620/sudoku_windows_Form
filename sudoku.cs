@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace sudoku_win
 {
 	public class Sudoku
 	{
+        private static readonly string filePath = "Save.xml"; //存檔位置
+
         private int Size => n * m;
-       
+
         private int n, m, level;		
 		private int[][] game, ans, qs; //遊戲中數獨 答案 題目
         private Random rand = new Random(DateTime.Now.Millisecond);
@@ -26,15 +30,16 @@ namespace sudoku_win
 			qs = CopyArr(game);
 		}
 
-		public Sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] qs) //讀檔用建構子
-		{
-			this.n = n;
-			this.m = m;
-			this.level = level;
-			this.game = game;
-			this.ans = ans;
-			this.qs = qs;
-		}
+        private Sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] qs) //讀檔用建構子
+        {
+            this.n = n;
+            this.m = m;
+            //this.size = m * n;
+            this.level = level;
+            this.game = game;
+            this.ans = ans;
+            this.qs = qs;
+        }
 
         public bool InputAns(int x, int y, int n) //輸入答案 ( 位置x , 位置y , 數字)
 		{
@@ -102,8 +107,37 @@ namespace sudoku_win
 			return cg;
 		}
 
-		//------------------------------------------------後端---------------------------------------------------------
-		private bool IsTrue(int[][] arr, int xy, int num) //檢查是否合理
+        public void Save()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GameData));
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                
+                serializer.Serialize(fs, new GameData(this));
+            }
+        }
+
+        public static Sudoku Load()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GameData));
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                GameData data = (GameData)serializer.Deserialize(fs);
+                return new Sudoku(data.n, data.m, data.level, data.game, data.ans, data.qs);
+            }
+        }
+
+        public static void Delete()
+        {
+            try
+            {
+                File.Delete(filePath);
+            }
+            catch (Exception e) { }
+        }
+
+        //------------------------------------------------後端---------------------------------------------------------
+        private bool IsTrue(int[][] arr, int xy, int num) //檢查是否合理
 		{
 			if (arr[xy / Size][ xy % Size] != 0)
 				return false;
@@ -230,5 +264,29 @@ namespace sudoku_win
 
 			return asn;
 		}
-	}
+
+        public class GameData
+        {
+            public int n;
+            public int m;
+            public int level;
+            public int[][] game; // 遊戲中數獨
+            public int[][] ans;  // 答案
+            public int[][] qs;   // 題目
+
+            public GameData(Sudoku data)
+            {
+                int[] buff = data.ReadData();
+                n = buff[0];
+                m = buff[1];
+                level = buff[2];
+
+                game = data.ReadGame();
+                ans = data.ReadAnswer();
+                qs = data.ReadQuestion();
+            }
+
+            private GameData() { }
+        }
+    }
 }
