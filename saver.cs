@@ -11,15 +11,15 @@ namespace sudoku_win
         public int n, m, level;
         public int[][] game, ans, qs;
 
-        public Su_data(sudoku data)
+        public Su_data(Sudoku data)
         {
-            int[] buff = data.readdata();
+            int[] buff = data.ReadData();
             n = buff[0];
             m = buff[1];
             level = buff[2];
-            game = data.readgame();
-            ans = data.readans();
-            qs = data.readqs();
+            game = data.ReadGame();
+            ans = data.ReadAnswer();
+            qs = data.ReadQuestion();
         }
     }
 
@@ -28,7 +28,7 @@ namespace sudoku_win
         private static String filePath = "Save.xml"; //存檔位置
 
 
-        public static void save( sudoku su ) //存檔
+        public static void save( Sudoku su ) //存檔
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Su_data));
             using (FileStream fs = new FileStream(filePath, FileMode.Create))
@@ -37,7 +37,7 @@ namespace sudoku_win
             }
         }
 
-        public static sudoku load() //讀檔
+        public static Sudoku load() //讀檔
         {
             Su_data buff ;
 
@@ -46,7 +46,7 @@ namespace sudoku_win
             {
                 buff = (Su_data)serializer.Deserialize(fs);
             }
-            return new sudoku(buff.n, buff.m, buff.level, buff.game, buff.ans, buff.qs);
+            return new Sudoku(buff.n, buff.m, buff.level, buff.game, buff.ans, buff.qs);
         }
 
         public static void delete() //刪除

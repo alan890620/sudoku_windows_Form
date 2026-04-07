@@ -26,7 +26,7 @@ namespace sudoku_win
 
 		*/
 
-		private sudoku game;
+		private Sudoku game;
 		private Button[] buttons , inputButtons;
 		private Label[] numshows;
 		private int click = 0;
@@ -63,7 +63,7 @@ namespace sudoku_win
 			try
 			{
 				game = FileCtr.load();
-                showGame(game.readgame(), game.readqs(), -1, game.chickWin(), game.chickgame());
+                showGame(game.ReadGame(), game.ReadQuestion(), -1, game.CheckWin(), game.CheckGame());
                 tableLayoutPanel11.Enabled = true;
             }
 			catch (Exception ex) { }
@@ -89,9 +89,9 @@ namespace sudoku_win
 
 		private void start_Click(object sender, EventArgs e) //開始按鈕
         {
-			game = new sudoku(3,3,(int)numericUpDown1.Value);
+			game = new Sudoku(3,3,(int)numericUpDown1.Value);
             FileCtr.save(game);
-            showGame(game.readgame() , game.readqs() , -1 , game.chickWin(), game.chickgame());
+            showGame(game.ReadGame() , game.ReadQuestion() , -1 , game.CheckWin(), game.CheckGame());
 			tableLayoutPanel11.Enabled = true;
 		}
 
@@ -143,7 +143,7 @@ namespace sudoku_win
         private void as_Click(object sender, EventArgs e) //選取格
 		{
 			click = Array.IndexOf(buttons,sender);
-			showGame(game.readgame(), game.readqs(), click, game.chickWin() , game.chickgame());
+			showGame(game.ReadGame(), game.ReadQuestion(), click, game.CheckWin() , game.CheckGame());
             //listBox1.Items.Add(click.ToString());
         }
 
@@ -162,9 +162,9 @@ namespace sudoku_win
 		private void KeyInAns ( int input ) //輸入
 		{
 			listBox1.Items.Add(input);
-			game.inputAns(click / 9, click % 9, input);
+			game.InputAns(click / 9, click % 9, input);
             FileCtr.save(game);
-            showGame(game.readgame(), game.readqs(), click, game.chickWin(), game.chickgame());
+            showGame(game.ReadGame(), game.ReadQuestion(), click, game.CheckWin(), game.CheckGame());
         }
 
 		private void Form1_Resize(object sender, EventArgs e) //視窗尺寸改變

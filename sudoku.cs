@@ -2,148 +2,161 @@
 
 namespace sudoku_win
 {
-	//Random rand = new Random(DateTime.Now.Millisecond);
-	public class sudoku
+	public class Sudoku
 	{
-		private int n, m, level;
-		private int size => n * m;
+        private int Size => n * m;
+       
+        private int n, m, level;		
 		private int[][] game, ans, qs; //遊戲中數獨 答案 題目
-		Random rand = new Random(DateTime.Now.Millisecond);
+        private Random rand = new Random(DateTime.Now.Millisecond);
 
-		public sudoku(int n, int m, int level) //初始建構子 (目前只能3*3)
+        public Sudoku(int n, int m, int level) //初始建構子 (目前只能3*3)
 		{
 			this.n = n;
 			this.m = m;
-			//this.size = m * n;
 			this.level = level;
-			//this.game = new int[n * m, m * n];
+			
 			do
-				this.ans = sudoku_sub();
+            {
+                this.ans = SudokuSub();
+            }
 			while (ans == null);
-			game = makegame();
-			qs = copyarr(game);
+
+			game = MakeGame();
+			qs = CopyArr(game);
 		}
-		public sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] qs) //讀檔用建構子
+
+		public Sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] qs) //讀檔用建構子
 		{
 			this.n = n;
 			this.m = m;
-			//this.size = m * n;
 			this.level = level;
 			this.game = game;
 			this.ans = ans;
 			this.qs = qs;
 		}
-		public bool inputAns(int x, int y, int n) //輸入答案 ( 位置x , 位置y , 數字)
+
+        public bool InputAns(int x, int y, int n) //輸入答案 ( 位置x , 位置y , 數字)
 		{
-			if (n > size || n < 0)  //防呆
+			if (n > Size || n < 0)  //防呆
 				return false;
-			if (x > size || x < 0)  //防笨
+
+			if (x > Size || x < 0)  //防笨
 				return false;
-			if (y > size || y < 0)  //防傻
+
+			if (y > Size || y < 0)  //防傻
 				return false;
+
 			if (qs[x][ y] != 0)      //防低能
 				return false;
+
 			game[x][ y] = n;
 			return true;
 		}
-		public int[] chickWin() //回傳各值數量與是否勝利 //第一個值為0即為勝利
+
+        public int[] CheckWin() //回傳各值數量與是否勝利 //第一個值為0即為勝利
 		{
-			int[] ch = new int[size + 1];
-			int ts = size * size;
+			int[] ch = new int[Size + 1];
+			int ts = Size * Size;
+
 			for (int t = 0; t != ts; t++)
 			{
-				ch[game[t / size][ t % size]]++;
-				if (game[t / size][ t % size] != ans[t / size][ t % size])
+				ch[game[t / Size][ t % Size]]++;
+				if (game[t / Size][ t % Size] != ans[t / Size][ t % Size])
 					ch[0]++;
 			}
+
 			return ch;
 		}
 
-		public int[][] readgame() //讀取正在進行的數獨
+        /// <summary>
+        /// 讀取正在進行的數獨
+        /// </summary>
+		public int[][] ReadGame() => game;
+
+        /// <summary>
+        /// 讀取答案
+        /// </summary>
+		public int[][] ReadAnswer() => ans;
+
+        /// <summary>
+        /// 讀取題目
+        /// </summary>
+		public int[][] ReadQuestion() => qs;
+
+		public int[] ReadData() //讀取資料
 		{
-			return game;
+			return new int[] { n, m, level, Size };
 		}
 
-		public int[][] readans() //讀取答案
-		{
-			return ans;
-		}
-
-		public int[][] readqs() //讀取題目
-		{
-			return qs;
-		}
-
-		public int[] readdata() //讀取資料
-		{
-			return new int[] { n, m, level, size };
-		}
-		public bool[] chickgame() //檢查勝利
+        public bool[] CheckGame() //檢查勝利
 		{
 			bool[] cg = new bool[81];
 			for (int t = 0; t != 81; t++)
 			{
-				int buff = game[t / size][ t % size];
-				game[t / size][ t % size] = 0;
-				cg[t] = isTrue(game, t, buff);
-				game[t / size][ t % size] = buff;
+				int buff = game[t / Size][ t % Size];
+				game[t / Size][ t % Size] = 0;
+				cg[t] = IsTrue(game, t, buff);
+				game[t / Size][ t % Size] = buff;
 			}
 			return cg;
 		}
 
 		//------------------------------------------------後端---------------------------------------------------------
-		private bool isTrue(int[][] arr, int xy, int num) //檢查是否合理
+		private bool IsTrue(int[][] arr, int xy, int num) //檢查是否合理
 		{
-			if (arr[xy / size][ xy % size] != 0)
+			if (arr[xy / Size][ xy % Size] != 0)
 				return false;
 
-			for (int t = 0; t != size; t++)
-				if (arr[(xy / size / 3) * 3 + t / 3][ (xy % size / 3) * 3 + t % 3] == num)
+			for (int t = 0; t != Size; t++)
+				if (arr[(xy / Size / 3) * 3 + t / 3][ (xy % Size / 3) * 3 + t % 3] == num)
 					return false;
 
-			for (int t = 0; t != size; t++)
+			for (int t = 0; t != Size; t++)
 			{
-				if (xy % size != t)
-					if (arr[xy / size][t] == num)
+				if (xy % Size != t)
+					if (arr[xy / Size][t] == num)
 						return false;
-				if (xy / size != t)
-					if (arr[t][xy % size] == num)
+
+				if (xy / Size != t)
+					if (arr[t][xy % Size] == num)
 						return false;
 			}
 			return true;
 		}
-		private int[][] sudoku_sub() //模組化生成數獨
-		{
-			int[][] arr = new int[size][];
-			for (int t = 0; t != size; t++)
-				arr[t] = new int[size]; 
-			//int[] xy = new int[size];
-			int xyb, res;
-			for (int t = 0; t != size * size; t++)
-				arr[t / size][t % size] = 0;
 
-			for (int t = 0; t != size; t++)
+        private int[][] SudokuSub() //模組化生成數獨
+		{
+			int[][] arr = new int[Size][];
+			for (int t = 0; t != Size; t++)
+				arr[t] = new int[Size]; 
+
+			int xyb, res;
+			for (int t = 0; t != Size * Size; t++)
+				arr[t / Size][t % Size] = 0;
+
+			for (int t = 0; t != Size; t++)
 			{
-				for (int t2 = 0; t2 != size; t2++) ;
+				for (int t2 = 0; t2 != Size; t2++) ;
 				//xy[t] = -1;
 
-				for (int t2 = 0; t2 != size; t2++)
+				for (int t2 = 0; t2 != Size; t2++)
 				{
 					res = 0;
 					bool s = false;
-					xyb = rand.Next() % (size - 1);
+					xyb = rand.Next() % (Size - 1);
 					Console.Write(t + " " + t2 + "\n");
 					do
 					{
-						if (res > size)                             //用下面的方法這裡要改大,上面的用9就可
+						if (res > Size)                             //用下面的方法這裡要改大,上面的用9就可
 						{
 							//cout << t << " " << t2 << endl;
 							return null;
 						}
-						xyb++; if (xyb > size - 1) xyb = 0;         //上下兩種二擇一
+						xyb++; if (xyb > Size - 1) xyb = 0;         //上下兩種二擇一
 																	//xyb = rand() % 9;							//此為另一種方法
 																	//s = !isTrue(arr, ((xyb / m) + (t2 / n * m)) * size + (xyb % n) + (t2 % m * n), t + 1);
-						s = !isTrue(arr, (xyb / n * size) + (xyb % n) /*內格*/ + (t2 / n * m) * size + (t2 % m * n) /*外格*/, t + 1);
+						s = !IsTrue(arr, (xyb / n * Size) + (xyb % n) /*內格*/ + (t2 / n * m) * Size + (t2 % m * n) /*外格*/, t + 1);
 						res++;
 					} while (s);
 					//xy[t2] = xyb;
@@ -152,7 +165,8 @@ namespace sudoku_win
 			}
 			return arr;
 		}
-		private int[][] makegame() //挖空格
+
+        private int[][] MakeGame() //挖空格
 		{
 
 			int[][] arr = new int[n * m][];
@@ -161,7 +175,7 @@ namespace sudoku_win
 
             do
 			{
-				arr = copyarr(ans);
+				arr = CopyArr(ans);
 				for (int t = 0; t != level;)
 				{
 					int r = rand.Next() % 81;
@@ -170,50 +184,50 @@ namespace sudoku_win
 						t++;
 						arr[r / 9][r % 9] = 0;
 					}
-					//cout << t << endl ;
 				}
 			}
-			while (asSuduku(arr, 0, 0) > 2);
+			while (AsSuduku(arr, 0, 0) > 2);
 			return arr;
 		}
-		private int[][] copyarr(int[][] arr) //複製陣列
+
+        private int[][] CopyArr(int[][] arr) //複製陣列
 		{
-			int[][] newArr = new int[size][ ];
-            for (int t = 0; t != size; t++)
-                newArr[t] = new int[size];
-            for (int t = 0; t != size; t++)
-				for (int t2 = 0; t2 != size; t2++)
-				{
+			int[][] newArr = new int[Size][];
+            for (int t = 0; t != Size; t++)
+                newArr[t] = new int[Size];
+
+            for (int t = 0; t != Size; t++)
+				for (int t2 = 0; t2 != Size; t2++)
 					newArr[t][t2] = arr[t][t2];
-				}
+
 			return newArr;
 		}
 
-		private int asSuduku(int[][] arr, int xy, int asn) //檢查唯一解
+		private int AsSuduku(int[][] arr, int xy, int asn) //檢查唯一解
 		{
-			//cout << xy << endl ;
 			if (xy >= 81)
-			{
-				//asn += 1;
-				//draw(arr, 9, 3);
 				return asn + 1;
-			}
+
 			if (arr[xy / 9][xy % 9] != 0)
-				asn = asSuduku(arr, xy + 1, asn);
+            {
+                asn = AsSuduku(arr, xy + 1, asn);
+            }
 			else
-				for (int t = 1; t != 10; t++)
-				{
-					if (isTrue(arr, xy, t))
-					{
-						arr[xy / 9][xy % 9] = t;
-						asn = asSuduku(arr, xy + 1, asn);
-						arr[xy / 9][xy % 9] = 0;
-						if (asn > 1)
-							return asn;
-					}
-				}
-			//draw(arr, 9, 3);
-			//cout << "error" << endl;
+            {
+                for (int t = 1; t != 10; t++)
+                {
+                    if (IsTrue(arr, xy, t))
+                    {
+                        arr[xy / 9][xy % 9] = t;
+                        asn = AsSuduku(arr, xy + 1, asn);
+                        arr[xy / 9][xy % 9] = 0;
+
+                        if (asn > 1)
+                            return asn;
+                    }
+                }
+            }
+
 			return asn;
 		}
 	}
