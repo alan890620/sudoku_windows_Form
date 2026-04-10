@@ -6,20 +6,18 @@ using System.Xml.Serialization;
 
 namespace sudoku_win
 {
-    public struct Su_data //結構
+    public struct SudokuData //結構
     {
         public int n, m, level;
-        public int[][] game, ans, qs;
+        public int[][][] game;
 
-        public Su_data(sudoku data)
+        public SudokuData(Sudoku data)
         {
-            int[] buff = data.readdata();
+            int[] buff = data.readData();
             n = buff[0];
             m = buff[1];
             level = buff[2];
-            game = data.readgame();
-            ans = data.readans();
-            qs = data.readqs();
+            game = data.getFullGame();
         }
     }
 
@@ -27,36 +25,37 @@ namespace sudoku_win
     {
         private static String filePath = "Save.xml"; //存檔位置
 
-
-        public static void save( sudoku su ) //存檔
+        public static void save( Sudoku su ) //存檔
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Su_data));
-            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            if (su.start == true)
             {
-                serializer.Serialize(fs, new Su_data(su));
+                XmlSerializer serializer = new XmlSerializer(typeof(SudokuData));
+                using (FileStream fs = new FileStream(filePath, FileMode.Create))
+                {
+                    serializer.Serialize(fs, new SudokuData(su));
+                }
+            }
+            else //如果結束就刪掉
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (Exception e) { }
             }
         }
 
-        public static sudoku load() //讀檔
+        public static Sudoku load() //讀檔
         {
-            Su_data buff ;
+            SudokuData buff ;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Su_data));
+            XmlSerializer serializer = new XmlSerializer(typeof(SudokuData));
             using (FileStream fs = new FileStream(filePath, FileMode.Open))
             {
-                buff = (Su_data)serializer.Deserialize(fs);
+                buff = (SudokuData)serializer.Deserialize(fs);
             }
-            return new sudoku(buff.n, buff.m, buff.level, buff.game, buff.ans, buff.qs);
+            return new Sudoku(buff.n, buff.m, buff.level, buff.game[0], buff.game[1], buff.game[2]);
         }
-
-        public static void delete() //刪除
-        {
-            try
-            {
-                File.Delete(filePath);
-            }
-            catch (Exception e) { }
-        }//*/
 
     }
 }

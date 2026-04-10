@@ -13,7 +13,6 @@ namespace sudoku_win
 {
     public partial class Form1 : Form
 	{
-		//Random rand = new Random(DateTime.Now.Millisecond);
 		/*
 		
 		┼┴┬┤├─│┌┐└┘ ═╞╪╡╔╦╗╠╬╣╚╩╝╒╤╕╘╧╛╓╥╖╟╫╢╙╨╜║
@@ -26,7 +25,7 @@ namespace sudoku_win
 
 		*/
 
-		private sudoku game;
+		private Sudoku game;
 		private Button[] buttons , inputButtons;
 		private Label[] numshows;
 		private int click = 0;
@@ -45,32 +44,23 @@ namespace sudoku_win
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e) //進入點
+        private void Form1_Load(object sender, EventArgs e) //視窗初始化
         {
-			
-			//NOTHING
 			load_item_field();
-
-			for ( int t = 0; t != 81; t++)
-			{
-				buttons[t].Text = " ";
-				buttons[t].Dock = DockStyle.Fill;
-				buttons[t].Margin = new System.Windows.Forms.Padding(1);
-			}
-			//*/
 			tableLayoutPanel11.Enabled = false;
 
-			try
+			try //嘗試讀檔
 			{
 				game = FileCtr.load();
-                showGame(game.readgame(), game.readqs(), -1, game.chickWin(), game.chickgame());
+                showGame(-1);
                 tableLayoutPanel11.Enabled = true;
             }
 			catch (Exception ex) { }
 
 			Form1_Resize( sender , e );
 		}
-		private void load_item_field()
+
+		private void load_item_field() //初始化按鈕
         {
 			try
 			{
@@ -85,27 +75,37 @@ namespace sudoku_win
 					numshows[t] = (Label)typeof(Form1).GetField("numShow" + (t + 1), BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
 			}
 			catch ( Exception e ) { }
-		}
+
+            for (int t = 0; t != 81; t++)
+            {
+                buttons[t].Text = " ";
+                buttons[t].Dock = DockStyle.Fill;
+                buttons[t].Margin = new System.Windows.Forms.Padding(1);
+            }
+        }
 
 		private void start_Click(object sender, EventArgs e) //開始按鈕
         {
-			game = new sudoku(3,3,(int)numericUpDown1.Value);
+			game = new Sudoku(3,3,(int)numericUpDown1.Value);
+            showGame(-1);
             FileCtr.save(game);
-            showGame(game.readgame() , game.readqs() , -1 , game.chickWin(), game.chickgame());
-			tableLayoutPanel11.Enabled = true;
+            tableLayoutPanel11.Enabled = true;
 		}
 
-		private void showGame( int[][] game , int[][] qs , int pick , int[] cw , bool[] cg) //顯示
+		private void showGame( int pick ) //顯示
         {
+			int[][][] fullArr = game.getFullGame();
+			int[] cw = game.checkWin();
+			bool[] cg = game.checkGame();
 			for ( int t = 0; t != 81; t ++)
 			{
-				if (game[t / 9][ t % 9] != 0) //數字顯示
-					buttons[t].Text = game[t / 9][ t % 9].ToString();
+				if (fullArr[0][t / 9][ t % 9] != 0) //數字顯示
+					buttons[t].Text = fullArr[0][t / 9][ t % 9].ToString();
 				else
 					buttons[t].Text = "";
 
 				int c1 = 1, c2 = 2;
-				if (qs[t / 9][ t % 9] != 0) //檢查是否為題目
+				if (fullArr[2][t / 9][ t % 9] != 0) //檢查是否為題目
 					c1 = 0;
 				if (t == pick) //是否為選取格
 					c2 = 0;
@@ -131,11 +131,10 @@ namespace sudoku_win
 					else
 						numshows[t].ForeColor = Color.Blue;
             }
-			//listBox1.Items.Add( pick );
-			if ( cw[0] == 0 )
+
+			if ( game.start == false )
             {
                 listBox1.Items.Add( "-WIN-" );
-                FileCtr.delete();
                 tableLayoutPanel11.Enabled = false;
 			}
         }
@@ -143,13 +142,11 @@ namespace sudoku_win
         private void as_Click(object sender, EventArgs e) //選取格
 		{
 			click = Array.IndexOf(buttons,sender);
-			showGame(game.readgame(), game.readqs(), click, game.chickWin() , game.chickgame());
-            //listBox1.Items.Add(click.ToString());
+			showGame(click );
         }
 
 		private void input_Click(object sender, EventArgs e) //輸入數字 UI
 		{
-			//int input = Array.IndexOf(inputButtons, sender) ;
 			KeyInAns(Array.IndexOf(inputButtons, sender));
 		}
 
@@ -163,8 +160,8 @@ namespace sudoku_win
 		{
 			listBox1.Items.Add(input);
 			game.inputAns(click / 9, click % 9, input);
+            showGame(click);
             FileCtr.save(game);
-            showGame(game.readgame(), game.readqs(), click, game.chickWin(), game.chickgame());
         }
 
 		private void Form1_Resize(object sender, EventArgs e) //視窗尺寸改變

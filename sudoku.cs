@@ -2,37 +2,38 @@
 
 namespace sudoku_win
 {
-	//Random rand = new Random(DateTime.Now.Millisecond);
-	public class sudoku
+	public class Sudoku
 	{
+		public bool start = false;
 		private int n, m, level;
 		private int size => n * m;
-		private int[][] game, ans, qs; //遊戲中數獨 答案 題目
+		private int[][] game, ans, ques; //遊戲中數獨 答案 題目
 		Random rand = new Random(DateTime.Now.Millisecond);
 
-		public sudoku(int n, int m, int level) //初始建構子 (目前只能3*3)
+		public Sudoku(int n, int m, int level) //初始建構子 (目前只能3*3)
 		{
+			start = true;
 			this.n = n;
 			this.m = m;
-			//this.size = m * n;
 			this.level = level;
-			//this.game = new int[n * m, m * n];
 			do
-				this.ans = sudoku_sub();
+				this.ans = Sudoku_sub();
 			while (ans == null);
-			game = makegame();
-			qs = copyarr(game);
+			game = createGame();
+			ques = copyArr(game);
 		}
-		public sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] qs) //讀檔用建構子
+
+		public Sudoku(int n, int m, int level, int[][] game, int[][] ans, int[][] ques) //讀檔用建構子
 		{
-			this.n = n;
+            start = true;
+            this.n = n;
 			this.m = m;
-			//this.size = m * n;
 			this.level = level;
 			this.game = game;
 			this.ans = ans;
-			this.qs = qs;
+			this.ques = ques;
 		}
+
 		public bool inputAns(int x, int y, int n) //輸入答案 ( 位置x , 位置y , 數字)
 		{
 			if (n > size || n < 0)  //防呆
@@ -41,12 +42,13 @@ namespace sudoku_win
 				return false;
 			if (y > size || y < 0)  //防傻
 				return false;
-			if (qs[x][ y] != 0)      //防低能
+			if (ques[x][ y] != 0)   //防低能
 				return false;
 			game[x][ y] = n;
 			return true;
 		}
-		public int[] chickWin() //回傳各值數量與是否勝利 //第一個值為0即為勝利
+
+		public int[] checkWin() //回傳各值數量與是否勝利 //第一個值為0即為勝利
 		{
 			int[] ch = new int[size + 1];
 			int ts = size * size;
@@ -56,40 +58,26 @@ namespace sudoku_win
 				if (game[t / size][ t % size] != ans[t / size][ t % size])
 					ch[0]++;
 			}
+			if ( ch[0] == 0)
+				start = false;
 			return ch;
-		}
+        }
+        public bool[] checkGame() //檢查每格是否正確
+        {
+            bool[] cg = new bool[81];
+            for (int t = 0; t != 81; t++)
+            {
+                int buff = game[t / size][t % size];
+                game[t / size][t % size] = 0;
+                cg[t] = isTrue(game, t, buff);
+                game[t / size][t % size] = buff;
+            }
+            return cg;
+        }
 
-		public int[][] readgame() //讀取正在進行的數獨
-		{
-			return game;
-		}
+		public int[][][] getFullGame() => new[] { game, ans, ques }; //讀取遊戲盤面
+		public int[] readData() => new int[] { n, m, level, size }; //讀取資料
 
-		public int[][] readans() //讀取答案
-		{
-			return ans;
-		}
-
-		public int[][] readqs() //讀取題目
-		{
-			return qs;
-		}
-
-		public int[] readdata() //讀取資料
-		{
-			return new int[] { n, m, level, size };
-		}
-		public bool[] chickgame() //檢查勝利
-		{
-			bool[] cg = new bool[81];
-			for (int t = 0; t != 81; t++)
-			{
-				int buff = game[t / size][ t % size];
-				game[t / size][ t % size] = 0;
-				cg[t] = isTrue(game, t, buff);
-				game[t / size][ t % size] = buff;
-			}
-			return cg;
-		}
 
 		//------------------------------------------------後端---------------------------------------------------------
 		private bool isTrue(int[][] arr, int xy, int num) //檢查是否合理
@@ -112,20 +100,19 @@ namespace sudoku_win
 			}
 			return true;
 		}
-		private int[][] sudoku_sub() //模組化生成數獨
+
+		private int[][] Sudoku_sub() //模組化生成數獨
 		{
 			int[][] arr = new int[size][];
 			for (int t = 0; t != size; t++)
 				arr[t] = new int[size]; 
-			//int[] xy = new int[size];
+
 			int xyb, res;
 			for (int t = 0; t != size * size; t++)
 				arr[t / size][t % size] = 0;
 
 			for (int t = 0; t != size; t++)
 			{
-				for (int t2 = 0; t2 != size; t2++) ;
-				//xy[t] = -1;
 
 				for (int t2 = 0; t2 != size; t2++)
 				{
@@ -136,23 +123,20 @@ namespace sudoku_win
 					do
 					{
 						if (res > size)                             //用下面的方法這裡要改大,上面的用9就可
-						{
-							//cout << t << " " << t2 << endl;
 							return null;
-						}
 						xyb++; if (xyb > size - 1) xyb = 0;         //上下兩種二擇一
-																	//xyb = rand() % 9;							//此為另一種方法
-																	//s = !isTrue(arr, ((xyb / m) + (t2 / n * m)) * size + (xyb % n) + (t2 % m * n), t + 1);
+						//xyb = rand() % 9;							//此為另一種方法
+						//s = !isTrue(arr, ((xyb / m) + (t2 / n * m)) * size + (xyb % n) + (t2 % m * n), t + 1);
 						s = !isTrue(arr, (xyb / n * size) + (xyb % n) /*內格*/ + (t2 / n * m) * size + (t2 % m * n) /*外格*/, t + 1);
 						res++;
 					} while (s);
-					//xy[t2] = xyb;
 					arr[(xyb / m) + (t2 / n * m)][(xyb % n) + (t2 % m * n)] = t + 1;
 				}
 			}
 			return arr;
 		}
-		private int[][] makegame() //挖空格
+
+		private int[][] createGame() //挖空格
 		{
 
 			int[][] arr = new int[n * m][];
@@ -161,7 +145,7 @@ namespace sudoku_win
 
             do
 			{
-				arr = copyarr(ans);
+				arr = copyArr(ans);
 				for (int t = 0; t != level;)
 				{
 					int r = rand.Next() % 81;
@@ -170,50 +154,42 @@ namespace sudoku_win
 						t++;
 						arr[r / 9][r % 9] = 0;
 					}
-					//cout << t << endl ;
 				}
 			}
-			while (asSuduku(arr, 0, 0) > 2);
+			while (chechUniq(arr, 0, 0) > 2);
 			return arr;
 		}
-		private int[][] copyarr(int[][] arr) //複製陣列
+
+		private int[][] copyArr(int[][] arr) //複製陣列
 		{
 			int[][] newArr = new int[size][ ];
-            for (int t = 0; t != size; t++)
-                newArr[t] = new int[size];
-            for (int t = 0; t != size; t++)
+			for (int t = 0; t != size; t++)
+			{
+				newArr[t] = new int[size];
 				for (int t2 = 0; t2 != size; t2++)
-				{
 					newArr[t][t2] = arr[t][t2];
-				}
+			}
 			return newArr;
 		}
 
-		private int asSuduku(int[][] arr, int xy, int asn) //檢查唯一解
+		private int chechUniq(int[][] arr, int xy, int asn) //檢查唯一解
 		{
-			//cout << xy << endl ;
 			if (xy >= 81)
-			{
-				//asn += 1;
-				//draw(arr, 9, 3);
 				return asn + 1;
-			}
 			if (arr[xy / 9][xy % 9] != 0)
-				asn = asSuduku(arr, xy + 1, asn);
+				asn = chechUniq(arr, xy + 1, asn);
 			else
 				for (int t = 1; t != 10; t++)
 				{
 					if (isTrue(arr, xy, t))
 					{
 						arr[xy / 9][xy % 9] = t;
-						asn = asSuduku(arr, xy + 1, asn);
+						asn = chechUniq(arr, xy + 1, asn);
 						arr[xy / 9][xy % 9] = 0;
 						if (asn > 1)
 							return asn;
 					}
 				}
-			//draw(arr, 9, 3);
-			//cout << "error" << endl;
 			return asn;
 		}
 	}
