@@ -75,6 +75,9 @@ namespace sudoku_win
             return cg;
         }
 
+		public int[][] getGame() => game;
+		public int[][] getAns() => ans;
+		public int[][] getQues() => ques;
 		public int[][][] getFullGame() => new[] { game, ans, ques }; //讀取遊戲盤面
 		public int[] readData() => new int[] { n, m, level, size }; //讀取資料
 
