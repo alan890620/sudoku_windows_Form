@@ -29,6 +29,7 @@ namespace sudoku_win
 		private Button[] buttons , inputButtons;
 		private Label[] numshows;
 		private int click = 0;
+		private bool debugMode = false;
 
 		//0題目 1答案 2錯的答案
 		//0選取 1高亮 2普通
@@ -56,6 +57,11 @@ namespace sudoku_win
                 tableLayoutPanel11.Enabled = true;
             }
 			catch (Exception ex) { }
+
+			if ( !debugMode )
+			{
+				listBox1.Visible = false;
+			}
 
 			Form1_Resize( sender , e );
 		}
@@ -167,6 +173,9 @@ namespace sudoku_win
 		private void Form1_Resize(object sender, EventArgs e) //視窗尺寸改變
         {
 			tableLayoutPanel11.Size = new Size( panel1.Size.Width -24 , ( panel1.Size.Width -24 ) + 80 ) ;
+			Font resize = new Font("新細明體", (int)(buttons[5].Width * 0.5));
+			for ( int t = 0; t != 81; t ++ )
+                buttons[t].Font =  resize;
 		}
 	}
 }
