@@ -4,9 +4,69 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sudoku_wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="數獨" Height="800" Width="450"
+        KeyDown="Window_KeyDown" >
+
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 數獨框框-->
+        <Grid x:Name ="bigSudokuBox" Grid.Row="1" Margin="5" ShowGridLines="False" >
+            <Grid.Height>
+                <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+            </Grid.Height>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- 數獨內層-->
+            <!-- 用程式動態生成-->
+
+            <Rectangle Grid.RowSpan="3" Grid.ColumnSpan="3"  Stroke ="Black" StrokeThickness="1" Fill="Transparent"/>
+        </Grid>
+        <Button Content="開始" HorizontalAlignment="Left" Margin="130,0,0,0" Height="30" Width="90" Click="Start_Click"/>
+        <xctk:IntegerUpDown Name="NumLevel" Minimum="0" Maximum="60" Value="45" HorizontalAlignment="Left"  Height="30" Width="90" Margin="20,0,0,0" />
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="inputGrid" Grid.Row="0" Margin="10" ClipToBounds="False">
+                <!-- 輸入按鈕-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <ListBox x:Name="listBox1" Grid.Row="1" Margin="10"/>
+
+        </Grid>
     </Grid>
 </Window>
